@@ -23,6 +23,22 @@ int Threshold = 550;
 
 PulseSensorPlayground pulseSensor;
 
+void colorwipe(int x, int y, int z) {
+  pixels.clear();
+  pixels.setPixelColor(0, pixels.Color(x, y, z));
+//  pixels.setPixelColor(1, pixels.Color(x, y, z));
+  pixels.setPixelColor(2, pixels.Color(x, y, z));
+//  pixels.setPixelColor(3, pixels.Color(x, y, z));
+  pixels.setPixelColor(4, pixels.Color(x, y, z));
+//  pixels.setPixelColor(5, pixels.Color(x, y, z));
+  pixels.setPixelColor(6, pixels.Color(x, y, z));
+//  pixels.setPixelColor(7, pixels.Color(x, y, z));
+  pixels.setPixelColor(8, pixels.Color(x, y, z));
+//  pixels.setPixelColor(9, pixels.Color(x, y, z));
+  pixels.show();
+  delay(2000);
+}
+
 void setup() {
   Serial.begin(9600);
 
@@ -72,23 +88,23 @@ void loop() {
     Serial.print("BPM: ");
     Serial.println(myBPM);
 
-    if (myBPM > 70) {
-      pixels.clear();
-      pixels.setPixelColor(1, pixels.Color(150, 0, 0));
-      pixels.setPixelColor(3, pixels.Color(150, 0, 0));
-      pixels.show();
-      delay(2000);
-    }
-
-    else {
-      pixels.clear();
-      pixels.setPixelColor(1, pixels.Color(0, 0, 150));
-      pixels.setPixelColor(3, pixels.Color(0, 0, 150));
-      
-      pixels.show();
-      delay(2000);
-
-    }
+    int age = 25;
+    int maxBPM = 220-age;
+    int idealBPMHigh = maxBPM * (85/100);
+    int idealBPMLow = maxBPM * (70/100);
+    int highTemp = 38;
+    int lowTemp = 35;
+    
+    if(myBPM > idealBPMHigh && t >= highTemp){
+      //red
+      colorwipe(50, 0, 0);
+    }else if(myBPM >= idealBPMLow && myBPM <=idealBPMHigh && t > lowTemp && t< highTemp){
+      //yellow
+      colorwipe(50, 50, 0);
+    }else {
+      //green
+      colorwipe(0, 50, 0); 
+    }  
   
 
   delay(20);
