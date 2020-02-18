@@ -88,17 +88,17 @@ void loop() {
     Serial.print("BPM: ");
     Serial.println(myBPM);
 
-    int age = 25;
-    int maxBPM = 220-age;
-    int idealBPMHigh = maxBPM * (85/100);
-    int idealBPMLow = maxBPM * (70/100);
-    int highTemp = 38;
-    int lowTemp = 35;
+     int age = /*param.asInt()*/;
+     int maxBPM = 220-age;
+     int idealBPMHigh = int(85*maxBPM/100);
+     int idealBPMLow = int(70*maxBPM/100);
+     int highTemp = 38;
+     int lowTemp = 35;
     
-    if(myBPM > idealBPMHigh && t >= highTemp){
+    if(myBPM > idealBPMHigh || t >= highTemp){
       //red
       colorwipe(50, 0, 0);
-    }else if(myBPM >= idealBPMLow && myBPM <=idealBPMHigh && t > lowTemp && t< highTemp){
+    }else if(myBPM >= idealBPMLow && myBPM <=idealBPMHigh || t > lowTemp && t< highTemp){
       //yellow
       colorwipe(50, 50, 0);
     }else {
